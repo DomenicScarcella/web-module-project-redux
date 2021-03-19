@@ -22,21 +22,22 @@ export const reducer = (state = initialState, action) => {
         case ADD_FEATURE:
             return {
                 ...state,
+                additionalPrice: state.additionalPrice + action.payload.price,
                 car: {
                     ...state.car,
                     features: [...state.car.features, action.payload],
-                    price: state.car.price + action.payload.price
                 },
             }
         case REMOVE_FEATURE:
             return {
                 ...state,
+                additionalPrice: state.additionalPrice - action.payload.price,
                 car: {
                     ...state.car,
-                    features: [...state.car.features, action.payload],
-                    price: state.car.price - action.payload.price
+                    features: state.car.features.filter(
+                        (feature) => feature.id !== action.payload.id),
                 },
-                additionalFeatures: [...state.additionalFeatures, action.payload]
+                // additionalFeatures: [...state.additionalFeatures, action.payload]
             }
         default:
             return state;
